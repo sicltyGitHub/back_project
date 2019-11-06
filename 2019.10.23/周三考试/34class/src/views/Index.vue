@@ -2,8 +2,12 @@
   <div>
     <h1>首页页面</h1>
     <select name id v-model="num" @change="changeClass">
-      <option value="请选择班级" selected disabled hidden>请选中下列数据</option>
-      <option :value="item.id" v-for="item in classes" :key="item.id">{{item.class_name}}</option>
+      <option value="请选择班级" selected disabled hidden
+        >请选中下列数据</option
+      >
+      <option :value="item.id" v-for="item in classes" :key="item.id">{{
+        item.class_name
+      }}</option>
     </select>
     <table width="600px" border="1" cellspacing="0" cellpadding="10">
       <tr>
@@ -13,7 +17,7 @@
         <th>头像</th>
         <th>入学时间</th>
       </tr>
-      <tr v-for="(item,index) in students" :key="index">
+      <tr v-for="(item, index) in students" :key="index">
         <td>{{ item.id }}</td>
         <td>{{ item.student_name }}</td>
         <td>{{ item.age }}</td>
@@ -66,8 +70,7 @@ export default {
 };
 </script>
 
-
-<style  scoped>
+<style scoped>
 /* 奇数 */
 table tr:nth-child(odd) {
   background-color: pink;

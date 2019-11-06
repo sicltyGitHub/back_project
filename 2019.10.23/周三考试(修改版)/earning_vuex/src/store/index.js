@@ -43,7 +43,6 @@ export default new Vuex.Store({
 
     // 退出
     logout (state) {
-      // 我记得杨老师将清空浏览器得token时 用的不是clear
       // 用户名为空
       state.username = ''
       // 清空浏览器中的token或用户名
