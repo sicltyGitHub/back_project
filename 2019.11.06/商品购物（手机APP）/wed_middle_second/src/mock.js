@@ -6,7 +6,7 @@ Mock.mock('http://localhost:9999/api/v1/main_ad_images', 'get', {
   'ok': 1,
   'data|6': [
     {
-      'image': "@image( '375x200', @color )",
+      'image': '@dataImage(375x200)',
       'link': 'http://www.baidu.com'
     }
   ]
@@ -31,7 +31,7 @@ Mock.mock(/http:\/\/localhost:9999\/api\/v1\/index_goods\?page=\d+&per_page=\d+/
       'id|+1': 1,
       'goods_name': '@Ctitle',
       'price': '@integer(1500,5000)',
-      'image': "@image( '130x130', @color )"
+      'image': '@dataImage( 130x130 )'
     }
   ]
 })

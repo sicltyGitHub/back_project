@@ -75,8 +75,6 @@ export default {
     },
     // 图片加载
     onLoad () {
-      // 图片自加
-      this.page++
       // 通过接口发起请求
       this.$http
         .get(`/index_goods?page=${this.page}&per_page=${this.per_page}`)
@@ -84,6 +82,8 @@ export default {
           // 把获取的数据放到goodsList中
           this.goodsList.push(...res.data.data)
           console.log(this.goodsList)
+          // 图片加载完后自动获取页数（否则一打开页面就到底了）
+          this.page++
         })
       // 加载状态结束
       this.loading = false
@@ -91,7 +91,6 @@ export default {
   }
 }
 </script>
-
 <style>
 .goods_name {
   font-size: 15px;
