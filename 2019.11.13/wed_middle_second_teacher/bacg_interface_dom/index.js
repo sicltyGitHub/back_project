@@ -35,6 +35,25 @@ app.get('/api/v1/main_ad_images', (req, res) => {
   })
 })
 
+// 连接首页轮播图接口
+app.get('/api/v1/main_ad_images', (req, res) => {
+  // 查询数据库
+  const sql = 'select image,link from shop_swipe_images'
+  db.query(sql, (err, data) => {
+    if (err) {
+      res.json({
+        'ok': 0,
+        'error': err
+      })
+    } else {
+      res.json({
+        'ok': 1,
+        'data': data
+      })
+    }
+  })
+})
+
 // 连接推荐分类接口
 app.get('/api/v1/index_categories', (req, res) => {
   // 执行sql语句查询数据库
@@ -81,38 +100,7 @@ app.get('/api/v1/index_goods', (req, res) => {
   })
 })
 
-// 链接cart
-app.get('/api/v1/goods', (req, res) => {
-  //  接收id
-  let id = req.query.id
-  // 先把id 转成数组
-  id = id.split(',')
-  // 循环数组获取
-  // 保存的是 ?
-  let arrfor = []
-  id.forEach(v => {
-    arrfor.push('?')
-  })
-  // 把问号的数组转成字符串
-  arrfor = arrfor.join(',')
-  let sql = `select * from goodslist where id in(${arrfor})`
-  // 连接数据库
-  db.query(sql, id, (err, data) => {
-    if (err) {
-      res.json({
-        'ok': 0,
-        'error': err
-      })
-    } else {
-      res.json({
-        'ok': 1,
-        'data': data
-      })
-    }
-  })
-})
-
 // 启动服务器
 app.listen(9999, () => {
-  console.log('http://127.0.0.1:9999正在努力奔跑中！')
+  console.log('http://127.0.0.1正在努力奔跑中！')
 })
