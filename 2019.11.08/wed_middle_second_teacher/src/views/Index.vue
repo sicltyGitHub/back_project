@@ -104,7 +104,7 @@ export default {
 
 <style>
 .swipeclass {
-  width: 375px;
+  width: 100%;
   height: 240px;
 }
 .goods_name {
