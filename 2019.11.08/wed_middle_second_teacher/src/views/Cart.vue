@@ -31,7 +31,6 @@
 
 <script>
 export default {
-  // （计算属性）：如果一个数据是需要计算之后得到的
   /*
     计算属性中：
     get：读取数据（默认）
@@ -59,8 +58,9 @@ export default {
           if (this.cart[i] === null) continue
           // 只要有一个没有勾选就返回 false
           if (this.cart[i].ischk === false) {
+            // 返回并退出函数
             return false
-          } // 返回并退出函数
+          }
         }
         // 如果能走到这就说明全都不是 false 那么就直接返回 true 代表全选
         return true
@@ -77,8 +77,8 @@ export default {
       }
     }
   },
-  // （监听器）：监听一个变量，当这个变量的值发生改变时触发！
-  //           注意：监听对象时要深度监听
+
+  // 监听
   watch: {
     cart: {
       deep: true, // 深度监听
@@ -90,9 +90,12 @@ export default {
   },
   data () {
     return {
-      id: JSON.parse(localStorage.getItem('id')) || [], // 所有商品的ID
-      cart: JSON.parse(localStorage.getItem('cart')) || [], // 所有商品的数量和是否勾选
-      goods: [] // 保存所有的商品详细信息
+      // 所有商品的ID
+      id: JSON.parse(localStorage.getItem('id')) || [],
+      // 所有商品的数量和是否勾选
+      cart: JSON.parse(localStorage.getItem('cart')) || [],
+      // 保存所有的商品详细信息
+      goods: []
     }
   },
   created () {
@@ -116,5 +119,4 @@ export default {
 .cart .van-checkbox__label {
   width: 100%;
 }
-
 </style>
