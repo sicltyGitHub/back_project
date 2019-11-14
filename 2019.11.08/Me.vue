@@ -76,10 +76,6 @@ export default {
     // 总价
     totalPrice() {
       return this.cartImage.reduce((total, item, index) => {
-        // 累计 赋值给total变量
-        // 去选中的数组中寻找是否有当前商品id
-        // 如果没有返回-1 ，有就在选中数组当中返回对应索引位置那他就是true
-        // true就给价格，false就给0
         return (
           total +
           (this.checkedGoods.indexOf(item.id) !== -1
