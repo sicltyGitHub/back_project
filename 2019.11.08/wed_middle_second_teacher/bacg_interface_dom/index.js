@@ -97,8 +97,7 @@ app.get('/api/v1/goods', (req, res) => {
   let id = req.query.id
   // 先把id 转成数组
   id = id.split(',')
-  // 循环数组获取
-  // 保存的是 ?
+  // 循环数组获取，保存的是：?
   let arrfor = []
   id.forEach(v => {
     arrfor.push('?')
@@ -128,14 +127,14 @@ app.post('/api/v1/regist', (req, res) => {
   let mobile = req.body.mobile
   let password = req.body.password
 
-  // 正则表达式验证数据
+  // 国内手机号正则表达式验证数据
   let mobileRe = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
   if (!mobileRe.test(mobile)) {
     res.json({
       'ok': 0,
       'error': '手机号码格式不正确！'
     })
-    // 退出程序，后面不再执行了
+    // 退出程序
     return
   }
 
@@ -158,7 +157,7 @@ app.post('/api/v1/regist', (req, res) => {
         'error': err
       })
     } else {
-      // 判断数据库中是否已经存在这个手机号码的记录
+      // 判断数据库中是否已经存在手机号
       if (data[0].c > 0) {
         res.json({
           'ok': 0,
@@ -200,7 +199,7 @@ app.post('/api/v1/login', (req, res) => {
 
   console.log(mobile, password)
 
-  // 正则表达式验证数据
+  // 国内手机号正则表达式验证数据
   let mobileRe = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
   if (!mobileRe.test(mobile)) {
     res.json({
@@ -231,7 +230,7 @@ app.post('/api/v1/login', (req, res) => {
       })
     } else {
       if (data.length > 0) {
-        // 3.1.1 判断密码
+        // 判断密码
         console.log(data[0].password, md5(password + salt))
 
         if (data[0].password === md5(password + salt)) {
@@ -252,7 +251,7 @@ app.post('/api/v1/login', (req, res) => {
           })
         }
       } else {
-        // 3.2 账号不存在
+        // 返回错误提示：账号不存在
         res.json({
           'ok': 0,
           'error': '手机号码不存在！'
