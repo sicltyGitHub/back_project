@@ -11,6 +11,8 @@ const salt = 'dfdfvszdefgrvszraefgsvgvbgh'
 const bodyParser = require('body-parser')
 // 注册为全局中间件
 app.use(bodyParser.urlencoded({ extended: true }))
+// 允许接收 json
+app.use(bodyParser.json())
 
 // 引入mysql
 const mysql = require('mysql')
@@ -122,11 +124,11 @@ app.get('/api/v1/goods', (req, res) => {
 
 // 注册接口
 app.post('/api/v1/regist', (req, res) => {
-  // 1. 接收表单中的数据
+  // 接收表单中的数据
   let mobile = req.body.mobile
   let password = req.body.password
 
-  // 2. 正则表达式验证数据
+  // 正则表达式验证数据
   let mobileRe = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
   if (!mobileRe.test(mobile)) {
     res.json({
@@ -147,7 +149,7 @@ app.post('/api/v1/regist', (req, res) => {
     return
   }
 
-  // 3. 判断这个手机号码是否已经存在
+  // 判断这个手机号码是否已经存在
   let sql = 'select count(*) c from shop_users where mobile = ?'
   db.query(sql, mobile, (err, data) => {
     if (err) {
@@ -192,13 +194,13 @@ app.post('/api/v1/regist', (req, res) => {
 
 // 登录接口
 app.post('/api/v1/login', (req, res) => {
-  // 1. 接收表单中的数据
+  // 接收表单中的数据
   let mobile = req.body.mobile
   let password = req.body.password
 
   console.log(mobile, password)
 
-  // 2. 正则表达式验证数据
+  // 正则表达式验证数据
   let mobileRe = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
   if (!mobileRe.test(mobile)) {
     res.json({
@@ -217,7 +219,7 @@ app.post('/api/v1/login', (req, res) => {
     })
     return
   }
-  // 3. 根据手机号码到用户表中查询是否有这个账号
+  // 根据手机号码到用户表中查询是否有这个账号
   let sql = 'select id,password from shop_users where mobile = ?'
   db.query(sql, mobile, (err, data) => {
     console.log(data)
@@ -258,6 +260,11 @@ app.post('/api/v1/login', (req, res) => {
       }
     }
   })
+})
+
+// 下订单
+app.post('/api/v1/orders', (req, res) => {
+
 })
 
 // 启动服务器

@@ -16,14 +16,14 @@ const routes = [
     component: () => import('../views/Cart.vue')
   },
   {
-    path: '/login',
-    name: '登录',
-    component: () => import('../views/Login.vue')
-  },
-  {
     path: '/regist',
     name: '注册',
     component: () => import('../views/Regist.vue')
+  },
+  {
+    path: '/login',
+    name: '登录',
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/me',
