@@ -12,8 +12,6 @@
       <van-card :title="item.goods_name" :price="item.price" :thumb="item.image">
         <!-- 自定义数量部分 -->
         <van-stepper slot="num" v-model="cart[item.id].count" />
-        <!-- 删除商品 -->
-        <van-button slot="tag" size="mini" type="danger">危险按钮</van-button>
         <!-- 自定义右下角部分 -->
         <van-tag slot="footer" type="warning">小计：￥{{(cart[item.id].count*item.price).toFixed(2)}}</van-tag>
       </van-card>
