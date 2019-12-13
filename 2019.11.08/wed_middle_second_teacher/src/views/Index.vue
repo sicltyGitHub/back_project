@@ -116,7 +116,7 @@ export default {
       //  把 ids 转字符串，然后再保存回浏览器
       localStorage.setItem('id', JSON.stringify(goods))
 
-      // 先从浏览器中取出 商品信息数组
+      // 1.先从浏览器中取出 商品信息数组
       let cart = localStorage.getItem('cart')
       // 如果还没有就直接定义数组并把ID放进去
       if (cart === null) {
