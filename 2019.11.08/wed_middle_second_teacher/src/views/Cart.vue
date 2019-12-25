@@ -1,128 +1,120 @@
 <template>
-  <div>
-    <!-- 商品导航 -->
-    <!-- 多选框组 start -->
-    <van-checkbox-group v-model="checkedGoods" class="card-goods">
-      <!-- 多选框 end -->
-      <van-checkbox
-        class="card-goods__item"
-        checked-color="#07c160"
-        v-for="(item, index) in cartImage"
-        :key="item.id"
-        :name="item.id"
-      >
-        <!-- 商品项 start -->
-        <van-card
-          :num="value[index]"
-          :price="item.price"
-          :desc="item.goods_desc"
-          :title="item.goods_name"
-          :thumb="item.image"
-        >
-          <template v-slot:footer>
-            <span class="count">小计：￥{{ value[index] * item.price }}</span>
-            <van-stepper style="margin-top: 20px;" v-model="value[index]" />
-          </template>
-          <!-- 商品项  end -->
-        </van-card>
-        <!-- 多选框 start -->
-      </van-checkbox>
-      <!-- 多选框组 end -->
-    </van-checkbox-group>
+  <div class="cart">
+    <van-nav-bar title="购物车" />
 
-    <!-- 商品结算条 -->
-    <van-submit-bar
-      :price="totalPrice*100"
-      :disabled="!checkedGoods.length"
-      :button-text="submitBarText"
-      @submit="onSubmit"
-    />
+    <!-- 循环所有的商品 -->
+    <van-checkbox
+      :label-disabled="true"
+      v-model="cart[item.id].ischk"
+      v-for="(item, index) in goods"
+      :key="index"
+    >
+      <van-card :title="item.goods_name" :price="item.price" :thumb="item.image">
+        <!-- 自定义数量部分 -->
+        <van-stepper slot="num" v-model="cart[item.id].count" />
+        <!-- 自定义右下角部分 -->
+        <van-tag slot="footer" type="warning">小计：￥{{(cart[item.id].count*item.price).toFixed(2)}}</van-tag>
+      </van-card>
+    </van-checkbox>
+
+    <van-submit-bar :price="totalPrice" button-text="提交订单">
+      <van-checkbox v-model="allChk">全选</van-checkbox>
+      <span slot="tip">
+        你的收货地址不支持同城送,
+        <span>修改地址</span>
+      </span>
+    </van-submit-bar>
   </div>
 </template>
 
 <script>
 export default {
+  /*
+    计算属性中：
+    get：读取数据（默认）
+    set：设置数据
+  */
+  computed: {
+    // 总价格
+    totalPrice: function () {
+      let sum = 0
+      // 循环所有的商品
+      this.goods.forEach(v => {
+        // 如果勾选了就把价格加到总价上
+        if (this.cart[v.id].ischk) {
+          sum += v.price * this.cart[v.id].count
+        }
+      })
+      // 返回结果（因为使用分为单元，所以我们需要转成元）
+      return sum * 100
+    },
+    // 是否全选
+    // 即可读取，又可设置
+    allChk: {
+      get: function () {
+        for (let i = 0; i < this.cart.length; i++) {
+          if (this.cart[i] === null) continue
+          // 只要有一个没有勾选就返回 false
+          if (this.cart[i].ischk === false) {
+            // 返回并退出函数
+            return false
+          }
+        }
+        // 如果能走到这就说明全都不是 false 那么就直接返回 true 代表全选
+        return true
+      },
+      // 每当点击全选按钮时这个函数就被调用了，有一个参数：勾选之后的值
+      set: function (newValue) {
+        // 修改所有商品的状态为 newValue 这个新的值
+        this.cart.forEach(v => {
+          // 判断商品不为 null 时修改勾选状态的值
+          if (v !== null) {
+            v.ischk = newValue
+          }
+        })
+      }
+    }
+  },
+
+  // 监听
+  watch: {
+    cart: {
+      deep: true, // 深度监听
+      handler: function () {
+        // 把 cart 写回浏览器
+        localStorage.setItem('cart', JSON.stringify(this.cart))
+      }
+    }
+  },
   data () {
     return {
-      // 存放数据
-      cartImage: [],
-      value: [],
-      // 选择的商品
-      checkedGoods: []
+      // 所有商品的ID
+      id: JSON.parse(localStorage.getItem('id')) || [],
+      // 所有商品的数量和是否勾选
+      cart: JSON.parse(localStorage.getItem('cart')) || [],
+      // 保存所有的商品详细信息
+      goods: []
     }
   },
   created () {
-    // 调用购物车图片
-    this.cart()
-  },
-  methods: {
-    // 渲染轮播图数据
-    cart () {
-      this.$http.get('/index_cart').then(res => {
-        this.cartImage = res.data.data
-        console.log(this.cartImage)
+    // 如果购物车中有商品ID就调用接口查询详细信息
+    if (this.id.length > 0) {
+      this.$http.get('/goods?id=' + this.id.join(',')).then(res => {
+        this.goods = res.data.data
       })
-    },
-    onSubmit () {
-      this.toast.success('ss')
-    }
-  },
-  computed: {
-    // 按钮的文本
-    submitBarText () {
-      const count = this.checkedGoods.length
-      return '结算' + (count ? `(${count})` : '')
-    },
-    // 总价
-    totalPrice () {
-      return this.cartImage.reduce((total, item, index) => {
-        // 累计 赋值给total变量
-        // 去选中的数组中寻找是否有当前商品id
-        // 如果没有返回-1 ，有就在选中数组当中返回对应索引位置那他就是true
-        // true就给价格，false就给0
-        return (
-          total +
-          (this.checkedGoods.indexOf(item.id) !== -1
-            ? item.price * this.value[index]
-            : 0)
-        )
-      }, 0)
     }
   }
 }
 </script>
 
-<style lang="less">
-.count {
-  color: red;
-  font-weight: bold;
-  font-size: 14px;
+<style>
+.cart {
+  padding-bottom: 30px;
 }
-.van-submit-bar {
-  bottom: 50px;
+.cart .van-submit-bar {
+  margin-bottom: 50px;
 }
-.card-goods {
-  padding: 10px 0;
-  background-color: #fff;
-  &__item {
-    position: relative;
-    background-color: #fafafa;
-    .van-checkbox__label {
-      width: 100%;
-      height: auto; // temp
-      padding: 0 10px 0 15px;
-      box-sizing: border-box;
-    }
-    .van-checkbox__icon {
-      top: 50%;
-      left: 10px;
-      z-index: 1;
-      position: absolute;
-      margin-top: -10px;
-    }
-    .van-card__price {
-      color: #f44;
-    }
-  }
+.cart .van-checkbox__label {
+  width: 100%;
 }
 </style>
