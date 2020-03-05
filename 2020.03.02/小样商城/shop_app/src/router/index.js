@@ -33,6 +33,14 @@ const routes = [
     path: '/regist',
     name: '注册',
     component: () => import('../views/Regist.vue')
+  },
+  // 商品数据
+  {
+    path: '/goods/:id',
+    // 开启路由传参
+    props: true,
+    name: '商品数据',
+    component: () => import('../views/Goods.vue')
   }
 ]
 

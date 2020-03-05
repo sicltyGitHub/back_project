@@ -63,7 +63,7 @@ export default {
     getGoods (id) {
       this.$http.get(`/shop_sn_categories?parent_id=${id}`).then(res => {
         this.goods_classify = res.data.sub_cat
-        // console.log(res.data.sub_cat)
+        console.log(res.data.sub_cat)
       })
     }
   }
