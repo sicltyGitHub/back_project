@@ -1,0 +1,80 @@
+// 引入包
+const axios = require('axios')
+
+export default {
+  mode: 'universal',
+  /*
+  ** Headers of the page
+  */
+  head: {
+    // 页面全局默认项目名称
+    // title: process.env.npm_package_name || '',
+    title:'Nuxt学习',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+    ],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
+  },
+  /*
+  ** Customize the progress-bar color
+  */
+  loading: { color: '#fff' },
+  /*
+  ** Global CSS
+  */
+  css: [
+  ],
+  /*
+  ** Plugins to load before mounting the App
+  */
+  plugins: [
+  ],
+  /*
+  ** Nuxt.js dev-modules
+  */
+  buildModules: [
+  ],
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
+    // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/axios',
+  ],
+  /*
+  ** Axios module configuration
+  ** See https://axios.nuxtjs.org/options
+  */
+  axios: {
+  },
+  /*
+  ** Build configuration
+  */
+  build: {
+    /*
+    ** You can extend webpack config here
+    */
+    extend(config, ctx) {
+    }
+  },
+  // 指定动态路由生成页面
+  generate: {
+    routes() {
+      return axios.get('https://cnodejs.org/api/v1/topics')
+        .then((res) => {
+          return res.data.data.map((v) => {
+            return {
+              // 生成文章的路由地址
+              route: '/content/' + v.id,
+              // 在生成时就把这个数据直接传到这个页面
+              payload: v
+            }
+          })
+        })
+    }
+  }
+}
