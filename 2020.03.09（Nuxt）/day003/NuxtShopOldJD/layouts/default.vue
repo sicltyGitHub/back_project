@@ -687,8 +687,8 @@ export default {
       ],
       script: [
         { src: "/jdshop/js/jquery-1.8.3.min.js" },
-        { src: "/jdshop/js/header.js" }
-      ]
+        { src: "/jdshop/js/header.js" },
+        ]
     };
   }
 };
