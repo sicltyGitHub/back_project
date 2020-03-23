@@ -1,5 +1,9 @@
 <template>
   <div class="index">
+    <!-- 最顶部会隐藏固定条 -->
+    <div class="topfixed" :style="{top: topFixedTop+'px'}">
+      <!-- 搜索 -->
+    </div>
     <!-- 顶部导航 -->
     <TopBaar />
     <!-- 顶部logo、搜索、广告图片 -->
@@ -75,6 +79,31 @@
         </div>
       </div>
     </div>
+    <!-- 秒杀 -->
+    <div class="container seckill">
+      <div class="row">
+        <!-- 左边秒杀 -->
+        <div class="col-2">
+          <Conut-Down title="8:00" start="2020-3-27 18:00:00" />
+        </div>
+        <!-- 中间轮播图 -->
+        <div class="col-8">
+          <!-- 商品循环滚动 -->
+          <GoodsScroll />
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <!-- 每日特价 -->
+    <div class="container">
+      <div class="row gutter">
+        <div class="col-6">XXX</div>
+        <div class="col-6">YYY</div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">页脚</div>
   </div>
 </template>
 
@@ -90,17 +119,65 @@ import CatTreeMenu from "~/components/CatTreeMenu";
 import Swiper from "~/components/Swiper";
 // 引入小轮播图
 import Hswiper from "~/components/Hswiper";
+// 秒杀
+import ConutDown from "~/components/ConutDown";
+// 商品滚动
+import GoodsScroll from "~/components/GoodsScroll";
+// 引入顶部导航滚动事件js
+import { getScrollTop } from "~/assets/util";
 export default {
   // 注册引入的组件
-  components: { TopBaar, Logo, cart, TopMenu, CatTreeMenu, Swiper, Hswiper }
+  components: {
+    TopBaar,
+    Logo,
+    cart,
+    TopMenu,
+    CatTreeMenu,
+    Swiper,
+    Hswiper,
+    ConutDown,
+    GoodsScroll
+  },
+  data() {
+    return {
+      topFixedTop: -53
+    };
+  },
+  // 监听滚动条
+  mounted() {
+    window.addEventListener("scroll", this.onScroll);
+  },
+  // 滚动条时间
+  methods: {
+    onScroll() {
+      // 获取滚动的高度
+      let top = getScrollTop();
+      // 判断滚动的位置
+      if (top >= 600) {
+        this.topFixedTop = 0;
+      } else {
+        this.topFixedTop = -53;
+      }
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 .index {
+  .topfixed {
+    // 飞行定位
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    height: 50px;
+    transition: all 0.5s;
+    border-bottom: 3px solid red;
+    background-color: #fff;
+  }
   background-color: #f2f2f2;
   .tright {
-    padding: 15px;
+    padding: 5px;
     background-color: #fff;
     &-icons {
       .col-4 {
@@ -166,6 +243,16 @@ export default {
         }
       }
     }
+  }
+
+  // 秒杀
+  .seckill {
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  // 页脚
+  .footer {
+    height: 1000px;
   }
 }
 </style>

@@ -75,6 +75,11 @@ export default {
           image:
             "https://img14.360buyimg.com/pop/s590x470_jfs/t1/104185/12/15287/271527/5e6f31a4Ef5b07718/9257434455a65fa9.jpg.webp",
           link: "www.taobao.com"
+        },
+        {
+          image:
+            "https://img20.360buyimg.com/pop/s590x470_jfs/t1/91184/3/15477/54627/5e71db6bEd058ca55/ab51cff6d4596c7e.jpg.webp",
+          link: "www.me.com"
         }
       ]
     };
