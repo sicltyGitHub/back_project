@@ -1,8 +1,8 @@
 <template>
   <div class="index">
     <!-- 最顶部会隐藏固定条 -->
-    <div class="topfixed" :style="{top: topFixedTop+'px'}">
-      <!-- 搜索 -->
+    <div>
+     <topFixedTop/>
     </div>
     <!-- 顶部导航 -->
     <TopBaar />
@@ -123,8 +123,8 @@ import Hswiper from "~/components/Hswiper";
 import ConutDown from "~/components/ConutDown";
 // 商品滚动
 import GoodsScroll from "~/components/GoodsScroll";
-// 引入顶部导航滚动事件js
-import { getScrollTop } from "~/assets/util";
+// 引入顶部导航滚动
+import topFixedTop from "~/components/topFixedTop";
 export default {
   // 注册引入的组件
   components: {
@@ -136,45 +136,15 @@ export default {
     Swiper,
     Hswiper,
     ConutDown,
-    GoodsScroll
+    GoodsScroll,
+    topFixedTop
   },
-  data() {
-    return {
-      topFixedTop: -53
-    };
-  },
-  // 监听滚动条
-  mounted() {
-    window.addEventListener("scroll", this.onScroll);
-  },
-  // 滚动条时间
-  methods: {
-    onScroll() {
-      // 获取滚动的高度
-      let top = getScrollTop();
-      // 判断滚动的位置
-      if (top >= 600) {
-        this.topFixedTop = 0;
-      } else {
-        this.topFixedTop = -53;
-      }
-    }
-  }
+
 };
 </script>
 
 <style lang="scss">
 .index {
-  .topfixed {
-    // 飞行定位
-    position: fixed;
-    z-index: 999;
-    width: 100%;
-    height: 50px;
-    transition: all 0.5s;
-    border-bottom: 3px solid red;
-    background-color: #fff;
-  }
   background-color: #f2f2f2;
   .tright {
     padding: 5px;
