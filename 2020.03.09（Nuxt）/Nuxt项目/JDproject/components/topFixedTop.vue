@@ -69,7 +69,7 @@ export default {
   components: { Logo, cart },
   data() {
     return {
-      topFixedTop: -85
+      topFixedTop: -90
     };
   },
   // 监听滚动条
@@ -85,7 +85,7 @@ export default {
       if (top >= 600) {
         this.topFixedTop = 0;
       } else {
-        this.topFixedTop = -85;
+        this.topFixedTop = -90;
       }
     }
   }

@@ -2,7 +2,7 @@
   <div class="index">
     <!-- 最顶部会隐藏固定条 -->
     <div>
-     <topFixedTop/>
+      <topFixedTop />
     </div>
     <!-- 顶部导航 -->
     <TopBaar />
@@ -91,14 +91,21 @@
           <!-- 商品循环滚动 -->
           <GoodsScroll />
         </div>
-        <div class="col-2"></div>
+        <div class="col-2">
+          <!-- 两张图片小轮播 -->
+          <ISwiper />
+        </div>
       </div>
     </div>
     <!-- 每日特价 -->
     <div class="container">
-      <div class="row gutter">
-        <div class="col-6">XXX</div>
-        <div class="col-6">YYY</div>
+      <div class="row gutter tj">
+        <div class="col-6">
+          <div class="today">
+            <Every-Tejia title="每日特价"/>
+          </div>
+        </div>
+        <div class="col-6"></div>
       </div>
     </div>
 
@@ -123,8 +130,12 @@ import Hswiper from "~/components/Hswiper";
 import ConutDown from "~/components/ConutDown";
 // 商品滚动
 import GoodsScroll from "~/components/GoodsScroll";
+// 引入两张图片轮播图
+import ISwiper from "~/components/ISwiper";
 // 引入顶部导航滚动
 import topFixedTop from "~/components/topFixedTop";
+// 引入每日特价
+import EveryTejia from "~/components/EveryTejia";
 export default {
   // 注册引入的组件
   components: {
@@ -137,9 +148,10 @@ export default {
     Hswiper,
     ConutDown,
     GoodsScroll,
-    topFixedTop
-  },
-
+    topFixedTop,
+    ISwiper,
+    EveryTejia
+  }
 };
 </script>
 
@@ -223,6 +235,14 @@ export default {
   // 页脚
   .footer {
     height: 1000px;
+  }
+  // 每日特价
+  .tj {
+    margin-top: 20px;
+    .today {
+      background-color: #fff;
+      padding: 10px;
+    }
   }
 }
 </style>

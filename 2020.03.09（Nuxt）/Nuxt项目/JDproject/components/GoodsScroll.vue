@@ -282,7 +282,7 @@ export default {
 </script>
 
 <style lang="scss">
-$cellWidth: 198px;
+$cellWidth: 199px;
 .gswiper {
   left: -7px;
   width: $cellWidth * 4;
