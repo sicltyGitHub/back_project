@@ -1,5 +1,5 @@
 <template>
-<!-- 每日特价 -->
+  <!-- 每日特价 -->
   <div class="tejia">
     <Card @change="onChange" title="每日特价" :btns="['精选','数码','美食','百货','预告']">
       <!-- 插槽 -->
@@ -7,7 +7,9 @@
         <div class="tejia-content">
           <div class="first">
             <img :src="tj[tj_i][0].image" alt />
-            <div class="title">{{tj[tj_i][0].goods_name}}</div>
+            <div class="title">
+              <nuxt-link to>{{tj[tj_i][0].goods_name}}</nuxt-link>
+            </div>
             <div class="price">
               ￥{{tj[tj_i][0].tprice}}
               <del>￥{{tj[tj_i][0].price}}</del>
@@ -18,7 +20,9 @@
           <!-- 渲染时候截取后四个 -->
           <div v-for="(item, index) in tj[tj_i].slice(1,5)" :key="index">
             <img :src="item.image" alt />
-            <div class="title">{{item.goods_name}}</div>
+            <div class="title">
+              <nuxt-link to>{{item.goods_name}}</nuxt-link>
+            </div>
             <div class="price">￥{{item.tprice}}</div>
             <del>￥{{item.price}}</del>
             <span class="hot">{{item.hot}}</span>

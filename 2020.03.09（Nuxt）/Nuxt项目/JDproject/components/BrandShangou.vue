@@ -62,6 +62,10 @@ export default {
     }
     .shangou-glogo {
       width: 62%;
+      &:hover{
+        cursor: pointer;
+        opacity: 0.5;
+      }
     }
   }
   &-right {
@@ -73,6 +77,10 @@ export default {
       img {
         width: 70%;
         margin-bottom: 10px;
+        &:hover{
+        cursor: pointer;
+        opacity: 0.7;
+      }
       }
       p {
         margin-bottom: 10px;
