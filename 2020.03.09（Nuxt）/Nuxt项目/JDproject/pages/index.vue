@@ -97,15 +97,57 @@
         </div>
       </div>
     </div>
-    <!-- 每日特价 -->
+    <!-- 每日特价、品牌闪购 -->
     <div class="container">
       <div class="row gutter tj">
+        <!-- 每日特价 -->
         <div class="col-6">
-          <div class="today">
-            <Every-Tejia title="每日特价"/>
-          </div>
+          <Every-Tejia/>
         </div>
-        <div class="col-6"></div>
+        <!-- 品牌闪购 -->
+        <div class="col-6">
+          <Brand-Shangou/>
+        </div>
+      </div>
+
+      <!-- 新品首发、排行榜、逛好店、领卷中心 -->
+      <div class="row gutter xp">
+        <div class="col-3">
+          <Card title="新品首发"></Card>
+        </div>
+        <div class="col-3">
+          <Card title="排行榜"></Card>
+        </div>
+        <div class="col-3">
+          <Card title="逛好店">
+            <!-- 插槽 -->
+            <template>
+              <div class="ghd">
+                <div class="ghd-item-1">
+                  <img
+                    src="https://img20.360buyimg.com/mobilecms/s100x100_jfs/t30649/285/1325340926/266795/c281e15/5cdcc7d4N16e78c84.jpg.webp"
+                    alt
+                  />
+                  <div class="ghd-title">奥义瑜伽京东自营旗舰店</div>
+                  <nuxt-link to>随心所动</nuxt-link>
+                  <p>14.8万人关注</p>
+                </div>
+                <div class="ghd-item-2">
+                  <img
+                    src="https://img12.360buyimg.com/mobilecms/s100x100_jfs/t1/92936/22/4456/117828/5de75596Edb5ff3f7/ed165932b9ac8e18.jpg.webp"
+                    alt
+                  />
+                  <div class="ghd-title">新经典文化京东自营店</div>
+                  <nuxt-link to>博览群书</nuxt-link>
+                  <p>41.6万人关注</p>
+                </div>
+              </div>
+            </template>
+          </Card>
+        </div>
+        <div class="col-3">
+          <Card title="领卷中心"></Card>
+        </div>
       </div>
     </div>
 
@@ -134,8 +176,12 @@ import GoodsScroll from "~/components/GoodsScroll";
 import ISwiper from "~/components/ISwiper";
 // 引入顶部导航滚动
 import topFixedTop from "~/components/topFixedTop";
-// 引入每日特价
+// 每日特价
 import EveryTejia from "~/components/EveryTejia";
+// 卡片
+import Card from "~/components/Card";
+// 品牌闪购
+import BrandShangou from "~/components/BrandShangou";
 export default {
   // 注册引入的组件
   components: {
@@ -150,8 +196,10 @@ export default {
     GoodsScroll,
     topFixedTop,
     ISwiper,
-    EveryTejia
-  }
+    Card,
+    EveryTejia,
+    BrandShangou
+  },
 };
 </script>
 
@@ -243,6 +291,44 @@ export default {
       background-color: #fff;
       padding: 10px;
     }
+  }
+  // 逛好店
+  .ghd {
+    padding: 10px;
+    &-item-1,
+    &-item-2 {
+      position: relative;
+      height: 110px;
+      margin-top: 8px;
+      img {
+        float: right;
+        width: 30%;
+        padding: 5px;
+        background-color: #fff;
+        border-radius: 5px;
+      }
+      padding: 15px;
+      a {
+        padding: 2px;
+        color: #596fab;
+        border: 1px solid #596fab;
+      }
+      p {
+        position: absolute;
+        color: 10px;
+        bottom: 10px;
+      }
+    }
+    &-item-1 {
+      background-color: #f1f5f9;
+      margin-bottom: 15px;
+    }
+    &-item-2 {
+      background-color: #f1f5f0;
+    }
+  }
+  .xp {
+    margin-top: 20px;
   }
 }
 </style>
