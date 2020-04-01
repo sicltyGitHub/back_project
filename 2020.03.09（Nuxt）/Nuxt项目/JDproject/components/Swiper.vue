@@ -80,6 +80,10 @@ export default {
           image:
             "https://img20.360buyimg.com/pop/s590x470_jfs/t1/91184/3/15477/54627/5e71db6bEd058ca55/ab51cff6d4596c7e.jpg.webp",
           link: "www.me.com"
+        },
+        {
+          image:'https://img14.360buyimg.com/da/s590x470_jfs/t1/10946/29/10024/80143/5c52fe4bE2b5ad0cb/69540484fe7067c6.jpg.webp',
+          link:'www.baidu.com'
         }
       ]
     };

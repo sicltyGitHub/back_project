@@ -84,7 +84,7 @@
       <div class="row">
         <!-- 左边秒杀 -->
         <div class="col-2">
-          <Conut-Down title="8:00" start="2020-3-27 18:00:00" />
+          <Conut-Down title="18:00" start="2020-4-1 24:00:00" />
         </div>
         <!-- 中间轮播图 -->
         <div class="col-8">

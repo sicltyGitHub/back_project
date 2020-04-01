@@ -87,7 +87,7 @@ export default {
       }
       // 奇数选择器
       &:nth-child(odd)::after {
-        position: absolute;
+        position: absolute; 
         top: 0;
         right: 0;
         content: "";
